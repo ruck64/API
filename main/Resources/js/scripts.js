@@ -1,10 +1,27 @@
-var total, gradePoints, studentCount
+var gradePointsAll = 0,
+    gradePointsYear1 = 0,
+    gradePointsGryffindor = 0,
+    gradePointsAstronomy = 0,
+    studentCountAll = 0,
+    studentCountYear1 = 0,
+    studentCountGryffindor = 0,
+    studentCountAstronomy = 0,
+    totalClassesAll = 0,
+    totalClassesYear1 = 0,
+    totalClassesGryffindor = 0,
+    totalClassesAstronomy = 1,
+    courseGrade = 0,
+    loop = 0
 
+
+//creating document called app to be used in my html with root styling
 const app = document.getElementById('root')
 
+//creating document and setting its class type with div styling
 const container = document.createElement('div')
 container.setAttribute('class', 'container')
 
+//appending container to app
 app.appendChild(container)
 
 // Create a request variable and assign a new XMLHttpRequest object to it.
@@ -13,83 +30,158 @@ var request = new XMLHttpRequest()
 // Open a new connection, using the GET request on the URL endpoint
 request.open('GET', 'http://challenge.kordata.io/students', true)
 
-request.onload = function ()
-{
-// User json parser for the file
+//running a function once i get the data
+request.onload = function () {
+    // User json parser for the file
     var data = JSON.parse(this.response)
-  // Begin accessing JSON data here
+    // Begin accessing JSON data here
 
-  if (request.status >= 200 && request.status < 400)
-  {
-    data.forEach(student => 
-    {
-        //count to total amount of students
-        studentCount++
+    //validating connection status of link
+    if (request.status >= 200 && request.status < 400) {
+        data.forEach(student => {
 
-        const card = document.createElement('div')
-        card.setAttribute('class','card')
+            //count to total amount of students
+            studentCountAll++
 
-        const h1 = document.createElement('h1')
-        h1.textContent = student.name
+            //if student is year 1 increment studentYear1 count
+            if (matching(student.year, 1))
+                studentCountYear1++
 
-        const p = document.createElement('p')
-        p.textContent = student.house
+            //if student is in the Gryffindor house increment studentCountGryffindor
+            if (matching(student.house, "Gryffindor"))
+                studentCountGryffindor++
 
-        container.appendChild(card)
-        card.appendChild(h1)
-        card.appendChild(p)
-        
-    })
- }
- if(request.status == 200)
-    //issue error for 200
-  
-  if(request.status == 400)
-    //issue error for 400
-    console.log("error") //if connection fails report error
-}
+            //check total amount of courses offered 
+            totalClassesAll = student.courses.length
 
-total = grapdePoints/studentCount
+            for (loop = 0; loop < totalClassesAll; loop++) {
+                courseGrade = CalculateGradePoint(student.courses[loop].grade)
 
-// Send request
-request.send()
+                //running total of all grades of all students
+                gradePointsAll += courseGrade
 
-//function to gives to appropiate points based on the grade using a 0-4 scale
-function CalculateGradePoint(letterGrade)
-{
-  if(student.grade === "A")
-    return 4
+                //if class matches astronomy add to astronomy student and gpa variables
+                if (matching(student.courses[loop].name, "Astronomy")) {
+                    studentCountAstronomy++
+                    gradePointsAstronomy += courseGrade
+                }
 
-  if(student.grade === "B")
-    return 3
+                //if the course is taken by a gryffindor student add that course grade to Gryffindor GP's
+                if (matching(student.house, "Gryffindor")){
+                    if(totalClassesGryffindor === 0)
+                        totalClassesGryffindor = countClasses(student)
+                    gradePointsGryffindor += courseGrade
+                }
+                //if the student taking the course is a 1st year add to the first year students GP's
+                if (matching(student.year, 1))
+                {
+                    if(totalClassesYear1 === 0)
+                        totalClassesYear1 = countClasses(student)
+                    gradePointsYear1 += courseGrade 
+                } 
 
-  if(student.grade === "C")
-    return 2
+            }
+            //courses[position].name = course name
+            //courses[position].grade = course grade
+        })
+    }
 
-  if(student.grade === "D")
-    return 1
+    const card1 = document.createElement('div')
+    card1.setAttribute('class', 'all')
+
+    const card2 = document.createElement('div')
+    card2.setAttribute('class', 'year1')
+
+    const card3 = document.createElement('div')
+    card3.setAttribute('class', 'gryffindor')
+
+    const card4 = document.createElement('div')
+    card4.setAttribute('class', 'astronomy')
+
+    container.appendChild(card1)
+    container.appendChild(card2)    
+    container.appendChild(card3)
+    container.appendChild(card4)
+
+    console.log("gpa: " + gradePointsYear1)
+    console.log("students: " + studentCountYear1)
+    console.log("classes: " + totalClassesYear1)
+
+    const all = document.createElement('h1')
+    all.textContent = "GPA of all students"
+    card1.appendChild(all)
+
+    const allGPA = document.createElement('p')
+    allGPA.textContent = "GPA: " + roundToHundreth(gradePointsAll,studentCountAll,totalClassesAll)
+    card1.appendChild(allGPA)
     
-  if(student.grade === "E")
-    return 0
+    const year1 = document.createElement('h1')
+    year1.textContent = "GPA of all First years"
+    card2.appendChild(year1)
+    
+    const year1GPA = document.createElement('p')
+    year1GPA.textContent = "GPA: " + roundToHundreth(gradePointsYear1,studentCountYear1,totalClassesYear1)
+    card2.appendChild(year1GPA)
+
+    const gryffindor = document.createElement('h1')
+    gryffindor.textContent = "GPA for the entire Gryffindor House"
+    card3.appendChild(gryffindor)
+   
+    const gryffindorGPA = document.createElement('p')
+    gryffindorGPA.textContent = "GPA: " + roundToHundreth(gradePointsGryffindor,studentCountGryffindor,totalClassesGryffindor)
+    card3.appendChild(gryffindorGPA)
+   
+    const astronomy = document.createElement('h1')
+    astronomy.textContent = "GPA for all students taking Astronomy"
+    card4.appendChild(astronomy)
+
+    const astronomyGPA = document.createElement('p')
+    astronomyGPA.textContent = "GPA: " + roundToHundreth(gradePointsAstronomy,studentCountAstronomy,totalClassesAstronomy)
+    card4.appendChild(astronomyGPA)
+
 }
 
-function handleDataAndParameters(request, year, house, subject)
-{
-  var data,studentCount,gradePoints,totalGPA
 
-  request.onload = function()
-  {
-    data = JSON.parse(this.response)
 
-    data.forEach(student => 
-      {
-        if(student.year == year && student.house === house && student.subject === subject)
-        {
-          studentCount++
-          gradePoints += CalculateGradePoint(student.grade)
-        }
-      })
+    total = gradePointsAll / studentCountAll
 
-      totalGPA = gradePoints/studentCount
-  }
-}
+    // Send request
+    request.send()
+
+    //function to gives to appropiate points based on the grade using a 0-4 scale
+    function CalculateGradePoint(letterGrade) {
+        if (letterGrade === "A")
+            return 4
+
+        if (letterGrade === "B")
+            return 3
+
+        if (letterGrade === "C")
+            return 2
+
+        if (letterGrade === "D")
+            return 1
+
+        if (letterGrade === "E")
+            return 0
+    }
+
+    function matching(actual, expected) {
+        if (actual === expected)
+            return true
+        return false
+    }
+
+    function roundToHundreth(GPA, students, totalClasses) {
+        return Math.round(100 * GPA / (students * totalClasses)) / 100
+    }
+
+    function countClasses(student)
+    {
+        var count = 0,
+            loop = 0
+            len = student.courses.length
+        for(loop = 0;loop < len; loop++)
+            count++
+        return count
+    }

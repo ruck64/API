@@ -1,26 +1,54 @@
-#root {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+#root 
+{
+  background-image: url(main\Resources\images\backgrd.jpg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
   
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-  }
+.container 
+{
+  display: inline-block;
+  flex-wrap: wrap;
+}
   
+.card 
+{
+  text-align:center;
+  margin: 1rem;
+  border: 1px solid gray;
+}
+
+.all
+{
+  background-image: url("main\Resources\images\space.jpg");
+}
+
+.year1
+{
+  background-color: white;
+}
+
+.gryffindor
+{
+  background-color: white;
+}
+  
+.astronomy
+{
+  background-image: url(main\Resources\images\space.jpg);
+}
+
+@media screen and (min-width: 600px) 
+{
+  .card 
+  {
+    flex: 1 1 calc(50% - 2rem);
+  }
+}
+  
+@media screen and (min-width: 900px)
+{
   .card {
-    margin: 1rem;
-    border: 1px solid gray;
+    flex: 1 1 calc(33% - 2rem);
   }
-  
-  @media screen and (min-width: 600px) {
-    .card {
-      flex: 1 1 calc(50% - 2rem);
-    }
-  }
-  
-  @media screen and (min-width: 900px) {
-    .card {
-      flex: 1 1 calc(33% - 2rem);
-    }
-  }
+}
