@@ -1,6 +1,16 @@
+#wrapper
+{
+  background: url("../images/backgrd.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 #root 
 {
   max-width: 1200px;
+  text-align: center;
   margin: 0 auto;
 }
   
@@ -19,22 +29,88 @@
 
 .all
 {
+  background: url("../images/school.jpg") center center no-repeat; 
   background-color: white;
+  border: black;
+  border-style: solid;
+  padding: 1em;
+  text-align: center;
+  font-size:20px;
+  margin: 1em;
+  -webkit-text-stroke: .7px black;
+    color: black;
+    text-shadow: 
+      .7px .7px 0 white, 
+      -.7px -.7px 0 white, 
+      .7px -.7px 0 white, 
+      -.7px .7px 0 white, 
+      .7px .7px 0 white;
 }
 
 .year1
 {
+  background: url("../images/freshman.jpg") center center no-repeat; 
   background-color: white;
+  border: black;
+  border-style: solid;
+  padding: 1em;
+  text-align: center;
+  font-size:20px;
+  margin: 1em;
+  -webkit-text-stroke: .7px black;
+  color: black;
+  text-shadow: 
+    .7px .7px 0 white, 
+    -.7px -.7px 0 white, 
+    .7px -.7px 0 white, 
+    -.7px .7px 0 white, 
+    .7px .7px 0 white;
 }
 
 .gryffindor
 {
+  background: url("../images/gryffindor.jpg") center center no-repeat; 
   background-color: white;
+  border: black;
+  border-style: solid;
+  padding: 1em;
+  text-align: center;
+  font-size:20px;
+  margin: 1em;
+  -webkit-text-stroke: .7px black;
+  color: black;
+  text-shadow: 
+    .7px .7px 0 white, 
+    -.7px -.7px 0 white, 
+    .7px -.7px 0 white, 
+    -.7px .7px 0 white, 
+    .7px .7px 0 white;
 }
   
 .astronomy
 {
-  background-color:white;
+  background: url("../images/space.jpg") center center;
+
+  background-color: white;
+  border: black;
+  border-style: solid;
+  padding: 1em;
+  text-align: center;
+  font-size:20px;
+  margin: 1em;
+  -webkit-text-stroke: .7px black;
+  color: black;
+  text-shadow: 
+    .7px .7px 0 white, 
+    -.7px -.7px 0 white, 
+    .7px -.7px 0 white, 
+    -.7px .7px 0 white, 
+    .7px .7px 0 white;
+}
+
+.value
+{
+  font-size: 20px;
 }
 
 @media screen and (min-width: 600px) 

@@ -80,7 +80,6 @@ request.onload = function () {
                         totalClassesYear1 = countClasses(student.courses)
                     gradePointsYear1 += courseGrade
                 }
-
             }
             //courses[position].name = course name
             //courses[position].grade = course grade
@@ -112,6 +111,7 @@ request.onload = function () {
     card1.appendChild(all)                    // attaches the created data onto card1
 
     const allGPA = document.createElement('p')  //creates a p element called allGPA
+    allGPA.setAttribute('class','value')        //sets the attribute to class value
     allGPA.textContent = "GPA: " + roundToHundreth(gradePointsAll, studentCountAll, totalClassesAll)
     //adds the text of GPA: and calculated result
     card1.appendChild(allGPA) //adds the text in p format to card1
@@ -121,6 +121,7 @@ request.onload = function () {
     card2.appendChild(year1)
 
     const year1GPA = document.createElement('p')
+    year1GPA.setAttribute('class','value')
     year1GPA.textContent = "GPA: " + roundToHundreth(gradePointsYear1, studentCountYear1, totalClassesYear1)
     card2.appendChild(year1GPA)
 
@@ -129,6 +130,7 @@ request.onload = function () {
     card3.appendChild(gryffindor)
 
     const gryffindorGPA = document.createElement('p')
+    gryffindorGPA.setAttribute('class','value')
     gryffindorGPA.textContent = "GPA: " + roundToHundreth(gradePointsGryffindor, studentCountGryffindor, totalClassesGryffindor)
     card3.appendChild(gryffindorGPA)
 
@@ -137,6 +139,7 @@ request.onload = function () {
     card4.appendChild(astronomy)
 
     const astronomyGPA = document.createElement('p')
+    astronomyGPA.setAttribute('class','value')
     astronomyGPA.textContent = "GPA: " + roundToHundreth(gradePointsAstronomy, studentCountAstronomy, totalClassesAstronomy)
     card4.appendChild(astronomyGPA)
 
