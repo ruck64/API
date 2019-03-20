@@ -15,6 +15,7 @@ module.exports = {
 
         if (letterGrade === "F")
             return 0
+        return Nan
     },
 
     //checks if two values are the same
@@ -31,7 +32,7 @@ module.exports = {
     },
 
     //counts the amount of classes a student is taking
-    countClasses: function (student) {
-        return student.length
+    countClasses: function (classes) {
+        return classes.length
     }
 };

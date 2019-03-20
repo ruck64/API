@@ -1,5 +1,6 @@
 //var tools = require("../js/functions")
 
+//list of all variables used
 var gradePointsAll = 0,
     gradePointsYear1 = 0,
     gradePointsGryffindor = 0,
@@ -40,6 +41,10 @@ request.onload = function () {
     //validating connection status of link
     if (request.status >= 200 && request.status < 400) {
         data.forEach(student => {
+            
+            //skipping over students without courses
+            if(student.courses.length < 1)
+                throw ("Student: " + student.name + "has no courses") 
 
             //count to total amount of students
             studentCountAll++
@@ -56,6 +61,11 @@ request.onload = function () {
             totalClassesAll = student.courses.length
 
             for (loop = 0; loop < totalClassesAll; loop++) {
+                
+                //throws is student has no grade for a certain class
+                if(student.courses[loop].grade === null)
+                    throw ("Student: " + student.name + "has no grade for " + student.courses[loop].name)
+
                 courseGrade = calculateGradePoint(student.courses[loop].grade)  //calculating once to reuse multiple times
 
                 //running total of all grades of all students
@@ -78,11 +88,10 @@ request.onload = function () {
                     matching(student.year, 1)) {
                     if (totalClassesYear1 === 0)  //checks to make sure this is only ran once
                         totalClassesYear1 = countClasses(student.courses)
+                    
                     gradePointsYear1 += courseGrade
                 }
             }
-            //courses[position].name = course name
-            //courses[position].grade = course grade
         })
     }
     //creating a card for each desired value
@@ -180,6 +189,6 @@ function roundToHundreth(GPA, students, totalClasses) {
 }
 
 //counts the amount of classes a student is taking
-function countClasses(student) {
-    return student.length
+function countClasses(classes) {
+    return classes.length
 }

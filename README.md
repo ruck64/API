@@ -20,7 +20,7 @@ This project creates a web page that pulls information from an API. The API cont
     - unzip downloaded version
     - save onto computer
     - open mainpage.html
-  Without testing(cloning)
+* Without testing(cloning)
     - clone https://github.com/ruck64/API.git
     - open mainpage.html
 

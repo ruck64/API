@@ -1,10 +1,12 @@
-'use strict';
+'use strict'
+
 const expect = require("chai").expect
 var scripts = require("../../Resources/js/functions.js")
 
+// exporting all tests cases used in /main/test/test/test.js
 module.exports = {
     matchShouldFail: function() {
-        expect(scripts.matching("hufflepuff","gryffindor")).to.be.false
+        expect(scripts.matching("hufflepuff","gryffindor")).to.be.false  
     },
 
     matchShouldPass: function() {
