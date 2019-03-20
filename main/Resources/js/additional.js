@@ -1,3 +1,5 @@
+//was developoing for future use with more functionality
+
 var gradePointsTotal = 0,
     gradePointsYear1 = 0, 
     gradePointsGryffindor = 0,
